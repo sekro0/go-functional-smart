@@ -6,7 +6,8 @@ import { Jar } from "@/components/ui/Jar";
 import { catalog, theater } from "@/data/content";
 import { coreProducts } from "@/data/products";
 import { formatARS } from "@/lib/format";
-import { DESKTOP, gsap, MOTION_OK, SplitText, useGSAP } from "@/lib/gsap";
+import { ANCHOR_EVENT } from "@/components/ui/AnchorLink";
+import { DESKTOP, gsap, MOTION_OK, ScrollTrigger, SplitText, useGSAP } from "@/lib/gsap";
 import type { ProductId, ProductTheme } from "@/types/catalog";
 
 const WORDS: Record<string, string> = {
@@ -64,8 +65,15 @@ export function ProductTheater({ onOpenProduct }: { onOpenProduct: (id: ProductI
           },
         });
 
-        tl.fromTo(part(0, "jar"), { yPercent: 18, scale: 0.9 }, { yPercent: 0, scale: 1, duration: 0.5, ease: "power2.out" }, 0);
-        tl.to(values[0], { v: coreProducts[0].keySpec!.value, duration: 0.5, onUpdate: render(0) }, 0);
+        const intro = gsap
+          .timeline({ paused: true })
+          .fromTo(part(0, "jar"), { yPercent: 18, scale: 0.9, autoAlpha: 0 }, { yPercent: 0, scale: 1, autoAlpha: 1, duration: 1.4, ease: "expo.out" })
+          .to(values[0], { v: coreProducts[0].keySpec!.value, duration: 1.4, ease: "power3.out", onUpdate: render(0) }, 0.1);
+        const introTrigger = ScrollTrigger.create({ trigger: section, start: "top 70%", once: true, onEnter: () => intro.play() });
+        const onArrive = (e: Event) => {
+          if ((e as CustomEvent<string>).detail === "#formulas") intro.progress(1);
+        };
+        window.addEventListener(ANCHOR_EVENT, onArrive);
 
         slides.forEach((_, i) => {
           tl.fromTo(part(i, "word"), { xPercent: 18 }, { xPercent: -18, duration: 1.6 }, Math.max(0, i - 0.6));
@@ -75,7 +83,7 @@ export function ProductTheater({ onOpenProduct }: { onOpenProduct: (id: ProductI
           const from = coreProducts[i - 1].theme!;
           const prev = i - 1;
 
-          tl.to(part(prev, "jar"), { yPercent: -95, rotate: -9, autoAlpha: 0, duration: 0.5, ease: "power2.in" }, at)
+          tl.fromTo(part(prev, "jar"), { yPercent: 0, rotate: 0, scale: 1, autoAlpha: 1 }, { yPercent: -95, rotate: -9, autoAlpha: 0, duration: 0.5, ease: "power2.in", immediateRender: false }, at)
             .to([part(prev, "info"), part(prev, "spec")], { yPercent: -12, autoAlpha: 0, duration: 0.3 }, at)
             .to(part(prev, "word"), { autoAlpha: 0, duration: 0.3 }, at + 0.1)
             .to(part(i, "fill"), { clipPath: "circle(150% at 50% 100%)", duration: 0.6, ease: "power2.in" }, at + 0.05)
@@ -92,6 +100,8 @@ export function ProductTheater({ onOpenProduct }: { onOpenProduct: (id: ProductI
         tl.to("[data-progress]", { scaleX: 1, duration: tl.duration() }, 0);
 
         return () => {
+          window.removeEventListener(ANCHOR_EVENT, onArrive);
+          introTrigger.kill();
           splits.forEach((s) => s.revert());
           delete section.dataset.pinned;
         };
@@ -99,15 +109,22 @@ export function ProductTheater({ onOpenProduct }: { onOpenProduct: (id: ProductI
 
       mm.add(`(max-width: 1023px) and ${MOTION_OK}`, () => {
         zero();
+        let first: gsap.core.Timeline | undefined;
         slides.forEach((slide, i) => {
           const value = { v: 0 };
-          gsap
+          const t = gsap
             .timeline({ scrollTrigger: { trigger: slide, start: "top 70%" } })
             .from(part(i, "jar"), { yPercent: 30, rotate: 6, autoAlpha: 0, duration: 1.4 })
             .to(value, { v: coreProducts[i].keySpec!.value, duration: 1.4, ease: "power3.out", onUpdate: () => (counters[i].textContent = fmtSpec(value.v)) }, 0.1)
             .from(part(i, "info"), { y: 30, autoAlpha: 0, duration: 1.2 }, 0.2);
+          if (i === 0) first = t;
           gsap.fromTo(part(i, "word"), { xPercent: 8 }, { xPercent: -14, ease: "none", scrollTrigger: { trigger: slide, start: "top bottom", end: "bottom top", scrub: true } });
         });
+        const onArrive = (e: Event) => {
+          if ((e as CustomEvent<string>).detail === "#formulas") first?.progress(1);
+        };
+        window.addEventListener(ANCHOR_EVENT, onArrive);
+        return () => window.removeEventListener(ANCHOR_EVENT, onArrive);
       });
 
       mm.add("(prefers-reduced-motion: reduce)", () => {

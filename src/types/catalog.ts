@@ -1,10 +1,9 @@
 export type ProductId =
   | "colageno-puro"
   | "vitamina-c-pura"
-  | "citrato-magnesio-500"
-  | "detox-blend";
+  | "citrato-magnesio-500";
 
-export type CoreProductId = Exclude<ProductId, "detox-blend">;
+export type CoreProductId = ProductId;
 
 export type ComboId = "combo-sinergico" | "combo-go" | "duo-recuperacion";
 
@@ -13,7 +12,6 @@ export type MediaKey =
   | "colagenoPuro"
   | "vitaminaCPura"
   | "citratoMagnesio"
-  | "detoxBlend"
   | "comboSinergico"
   | "comboFull"
   | "goReset";
@@ -125,7 +123,6 @@ export interface Product {
   id: ProductId;
   code: string;
   index: string;
-  tier: "core" | "complement";
   name: string;
   coBrand?: string;
   tagline: string;

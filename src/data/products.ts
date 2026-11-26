@@ -1,4 +1,4 @@
-import type { Combo, ComboId, Synergy, CommercialTerms, CoreProductId, Product, ProductId } from "@/types/catalog";
+import type { Combo, ComboId, Synergy, CommercialTerms, Product, ProductId } from "@/types/catalog";
 
 const BUDA = "https://www.budamarket.com.ar";
 
@@ -28,7 +28,6 @@ export const products: Record<ProductId, Product> = {
     id: "colageno-puro",
     code: "GFS-01",
     index: "01",
-    tier: "core",
     name: "Colágeno Puro",
     coBrand: "by Agus Dandri",
     tagline: "Péptidos bioactivos de colágeno tipo I y III. Un solo ingrediente, 10 g por porción.",
@@ -98,7 +97,6 @@ export const products: Record<ProductId, Product> = {
     id: "vitamina-c-pura",
     code: "GFS-02",
     index: "02",
-    tier: "core",
     name: "Vitamina C Pura",
     coBrand: "by Agus Dandri",
     tagline: "Ácido ascórbico puro. 1000 mg por porción, sin excipientes.",
@@ -160,7 +158,6 @@ export const products: Record<ProductId, Product> = {
     id: "citrato-magnesio-500",
     code: "GFS-03",
     index: "03",
-    tier: "core",
     name: "Citrato de Magnesio 500",
     tagline: "500 mg de citrato por cápsula. 80 mg de magnesio elemental.",
     format: "Cápsulas vegetales",
@@ -212,33 +209,13 @@ export const products: Record<ProductId, Product> = {
     theme: { bg: "#2A1714", fg: "#F1E4D8", accent: "#D0623A" },
     keySpec: { value: 500, unit: "mg", label: "Citrato de magnesio por cápsula" },
   },
-  "detox-blend": {
-    id: "detox-blend",
-    code: "GFS-04",
-    index: "04",
-    tier: "complement",
-    name: "Go Smart Detox Blend",
-    tagline: "Cúrcuma, canela y jengibre.",
-    format: "50 g",
-    attributes: ["Sin TACC"],
-    ingredients: "Cúrcuma, canela y jengibre.",
-    focus: [],
-    faqs: [],
-    price: { list: 4750, transfer: 4275 },
-    url: `${BUDA}/productos/go-smart-detox-blend/`,
-    mediaKey: "detoxBlend",
-  },
 };
-
-export const isCoreProduct = (id: ProductId): id is CoreProductId => products[id].tier === "core";
 
 export const coreProducts: Product[] = [
   products["colageno-puro"],
   products["vitamina-c-pura"],
   products["citrato-magnesio-500"],
 ];
-
-export const complementProducts: Product[] = [products["detox-blend"]];
 
 const SYNERGY_C_COLAGENO: Synergy = {
   pair: ["vitamina-c-pura", "colageno-puro"],

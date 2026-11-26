@@ -149,7 +149,6 @@ export const catalog = {
   eyebrow: "FÓRMULAS CORE",
   title: "Tres fórmulas. Un ingrediente cada una.",
   body: "Sin mezclas que diluyen la dosis. Cada envase declara exactamente lo que contiene.",
-  complementLabel: "COMPLEMENTO",
   detailCta: "Ficha técnica y uso",
   buyCta: "Comprar en Buda Market",
   buyShort: "Comprar",

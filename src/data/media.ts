@@ -31,11 +31,6 @@ const magnesio = [
   img("magnesio-back.webp", "Dorso del frasco de Citrato de Magnesio con ingesta recomendada y rótulo", "back", "Dorso", true, { x0: 0.293, x1: 0.688, y1: 0.918 }),
 ];
 
-const detox = [
-  img("detox-blend.webp", "Go Smart Detox Blend de cúrcuma, canela y jengibre, 50 g", "front", "Frente", true, { x0: 0.351, x1: 0.65, y1: 0.804 }),
-  img("detox-blend-tapa.webp", "Tapa del Detox Blend con sello Go Smart", "editorial", "Tapa", false),
-];
-
 const comboSinergico = [
   img("combo-sinergico.webp", "Combo Sinérgico: Colágeno Puro y Vitamina C Pura", "front", "Frente", true, { x0: 0.096, x1: 0.926, y1: 0.882 }),
 ];
@@ -77,15 +72,6 @@ export const media: Record<MediaKey, MediaAsset> = {
     hasWhiteBg: true,
     gallery: magnesio,
   },
-  detoxBlend: {
-    src: detox[0].src,
-    type: "image",
-    alt: detox[0].alt,
-    figure: "FIG. 04",
-    label: "DETOX BLEND 50G",
-    hasWhiteBg: true,
-    gallery: detox,
-  },
   comboSinergico: {
     src: comboSinergico[0].src,
     type: "image",
@@ -125,6 +111,15 @@ export const agusPhotos: GalleryImage[] = [
     label: "Colágeno + Vitamina C",
     width: 574,
     height: 1024,
+    hasWhiteBg: false,
+  },
+  {
+    src: "/media/agus/agus-lago-colageno-vitamina-c.webp",
+    alt: "Agus Dandri al aire libre con Colágeno Puro en una mano y Vitamina C Pura en la otra",
+    kind: "editorial",
+    label: "Colágeno Puro · Vitamina C Pura",
+    width: 1920,
+    height: 1179,
     hasWhiteBg: false,
   },
 ];

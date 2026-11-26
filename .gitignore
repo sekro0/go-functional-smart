@@ -43,3 +43,6 @@ next-env.d.ts
 # assets pesados locales
 /Videos-3d/
 /.tmp-video-frames/
+
+.vercel
+.env*

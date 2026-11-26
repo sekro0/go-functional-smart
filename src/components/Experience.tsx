@@ -3,7 +3,6 @@
 import { useCallback, useState } from "react";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
-import { Complement } from "@/components/sections/Complement";
 import { Faq } from "@/components/sections/Faq";
 import { Founder } from "@/components/sections/Founder";
 import { GoReset } from "@/components/sections/GoReset";
@@ -27,7 +26,6 @@ export function Experience() {
         <Manifesto />
         <Founder />
         <ProductTheater onOpenProduct={setActive} />
-        <Complement onOpenProduct={setActive} />
         <Protocols />
         <GoReset />
         <Horizon />
