@@ -170,7 +170,7 @@ export function ProductTheater({ onOpenProduct }: { onOpenProduct: (id: ProductI
             data-slide
             aria-label={product.name}
             style={{ "--own-bg": theme.bg, "--own-fg": theme.fg, "--own-accent": theme.accent } as CSSProperties}
-            className="relative isolate flex min-h-svh flex-col overflow-hidden bg-[var(--sbg)] text-[var(--sfg)] [--sacc:var(--own-accent)] [--sbg:var(--own-bg)] [--sfg:var(--own-fg)] group-data-[pinned=true]/t:absolute group-data-[pinned=true]/t:inset-0 group-data-[pinned=true]/t:bg-transparent"
+            className="relative isolate flex min-h-svh flex-col overflow-hidden bg-[var(--sbg)] text-[var(--sfg)] [--sacc:var(--own-accent)] [--sbg:var(--own-bg)] [--sfg:var(--own-fg)] group-data-[pinned=true]/t:pointer-events-none group-data-[pinned=true]/t:absolute group-data-[pinned=true]/t:inset-0 group-data-[pinned=true]/t:bg-transparent"
           >
             <div data-fill aria-hidden className="absolute inset-0 hidden bg-[var(--own-bg)] group-data-[pinned=true]/t:block" />
             <p
@@ -189,7 +189,7 @@ export function ProductTheater({ onOpenProduct }: { onOpenProduct: (id: ProductI
                 <Jar product={product} sizes="(min-width: 1024px) 26vw, 60vw" />
               </div>
 
-              <div data-info className="order-2 col-span-12 mt-10 lg:order-1 lg:col-span-4 lg:mt-0 lg:self-end">
+              <div data-info className="pointer-events-auto order-2 col-span-12 mt-10 lg:order-1 lg:col-span-4 lg:mt-0 lg:self-end">
                 <p className="label-mono opacity-70">
                   {product.index} — {product.code}
                 </p>
@@ -207,7 +207,7 @@ export function ProductTheater({ onOpenProduct }: { onOpenProduct: (id: ProductI
                 </ul>
               </div>
 
-              <div data-spec className="order-3 col-span-12 mt-10 lg:col-span-4 lg:mt-0 lg:self-end lg:justify-self-end lg:text-right">
+              <div data-spec className="pointer-events-auto order-3 col-span-12 mt-10 lg:col-span-4 lg:mt-0 lg:self-end lg:justify-self-end lg:text-right">
                 <p className="label-mono opacity-70">{theater.specLabel}</p>
                 <p className="mt-2 flex items-baseline gap-2 lg:justify-end">
                   <span data-count className="font-mono text-[clamp(3.5rem,6vw,6rem)] leading-none font-light tracking-tight tabular-nums">
