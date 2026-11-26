@@ -120,11 +120,8 @@ export const chronobiology: ChronoSlot[] = [
 ];
 
 export const founder = {
-  eyebrow: "LA FIRMA EN EL ENVASE",
   name: "Agus Dandri",
-  role: "Fórmulas by Agus Dandri",
-  body: "Colágeno Puro y Vitamina C Pura llevan su firma en la etiqueta. Dos ingredientes únicos, cada uno en su dosis, pensados para tomarse por separado.",
-  caption: "Agus Dandri con Colágeno Puro y Vitamina C Pura",
+  caption: "Agus Dandri con Colágeno Puro y Vitamina C Pura, las dos fórmulas que llevan su firma.",
 };
 
 export const marquee = [

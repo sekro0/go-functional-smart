@@ -4,7 +4,6 @@ import { useCallback, useState } from "react";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { Faq } from "@/components/sections/Faq";
-import { Founder } from "@/components/sections/Founder";
 import { GoReset } from "@/components/sections/GoReset";
 import { Hero } from "@/components/sections/Hero";
 import { Horizon } from "@/components/sections/Horizon";
@@ -24,7 +23,6 @@ export function Experience() {
       <main>
         <Hero />
         <Manifesto />
-        <Founder />
         <ProductTheater onOpenProduct={setActive} />
         <Protocols />
         <GoReset />

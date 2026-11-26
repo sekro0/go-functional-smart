@@ -1,9 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import { useRef } from "react";
 import { Marquee } from "@/components/ui/Marquee";
-import { marquee, philosophy } from "@/data/content";
+import { founder, marquee, philosophy } from "@/data/content";
+import { agusPhotos } from "@/data/media";
 import { gsap, MOTION_OK, SplitText, useGSAP } from "@/lib/gsap";
+
+const photo = agusPhotos[1];
 
 export function Manifesto() {
   const root = useRef<HTMLElement>(null);
@@ -42,6 +46,27 @@ export function Manifesto() {
           scrollTrigger: { trigger: "[data-attr]", start: "top 90%" },
         });
 
+        if (photo) {
+          gsap.fromTo(
+            "[data-photo]",
+            { clipPath: "inset(18% 6% 18% 6%)" },
+            {
+              clipPath: "inset(0% 0% 0% 0%)",
+              ease: "none",
+              scrollTrigger: { trigger: "[data-photo]", start: "top bottom", end: "top 35%", scrub: true },
+            },
+          );
+          gsap.fromTo(
+            "[data-photo-inner]",
+            { yPercent: -6 },
+            {
+              yPercent: 6,
+              ease: "none",
+              scrollTrigger: { trigger: "[data-photo]", start: "top bottom", end: "bottom top", scrub: true },
+            },
+          );
+        }
+
         return () => split.revert();
       });
     },
@@ -65,6 +90,21 @@ export function Manifesto() {
             </footer>
           </blockquote>
         </div>
+
+        {photo && (
+          <figure className="container-editorial pb-28 md:pb-40">
+            <div
+              data-photo
+              className="relative overflow-hidden rounded-2xl"
+              style={{ aspectRatio: `${photo.width} / ${photo.height}` }}
+            >
+              <div data-photo-inner className="absolute -inset-y-[8%] inset-x-0">
+                <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 1440px) 1360px, 100vw" className="object-cover" />
+              </div>
+            </div>
+            <figcaption className="mt-4 label-mono text-[10px] text-ink-on-dark/60">{founder.caption}</figcaption>
+          </figure>
+        )}
       </div>
     </section>
   );
